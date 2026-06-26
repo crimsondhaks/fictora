@@ -1,0 +1,208 @@
+@import "tailwindcss";
+
+/* ============================================================
+   Fictora design system
+   Editorial premium look — soft blue backgrounds, near-black ink,
+   white cards, black rounded buttons, Libre Baskerville serif
+   headlines with italic serif accents (Inter for body).
+   ============================================================ */
+
+@theme {
+  /* Ink / neutrals */
+  --color-ink: #0a0a0c;
+  --color-ink-soft: #2a2a30;
+  --color-muted: #565660;
+  --color-faint: #8a8a95;
+  --color-line: #e9edf3;
+  --color-line-strong: #dbe1ea;
+
+  --color-canvas: #ffffff;
+  --color-surface: #f6f9fd;
+  --color-tint: #dbe7ff;
+
+  /* Brand = soft editorial blue (no purple) */
+  --color-brand: #1f6feb;
+  --color-brand-strong: #155bce;
+  --color-brand-soft: #e3f2ff;
+  --color-sky: #5ea8ff;
+  --color-azure: #2e7bff;
+
+  /* Semantic status colors (used only in data viz / report UI) */
+  --color-mint: #14b88a;
+  --color-amber: #f5a623;
+  --color-rose: #f0556d;
+
+  /* Fonts */
+  --font-sans: "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI",
+    Roboto, Helvetica, Arial, sans-serif;
+  --font-serif: "Libre Baskerville", Georgia, "Times New Roman", serif;
+
+  /* Radii */
+  --radius-card: 22px;
+  --radius-btn: 12px;
+
+  /* Shadows */
+  --shadow-soft: 0 1px 2px rgba(10, 10, 20, 0.04),
+    0 8px 24px -8px rgba(10, 10, 20, 0.08);
+  --shadow-card: 0 1px 0 rgba(10, 10, 20, 0.03),
+    0 20px 48px -24px rgba(10, 10, 20, 0.16);
+  --shadow-glow: 0 24px 70px -28px rgba(31, 111, 235, 0.4);
+
+  /* Animations */
+  --animate-marquee: marquee 38s linear infinite;
+  --animate-marquee-rev: marquee-rev 38s linear infinite;
+  --animate-float: float 6s ease-in-out infinite;
+  --animate-pulse-ring: pulse-ring 2.4s ease-out infinite;
+}
+
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+@keyframes marquee-rev {
+  from {
+    transform: translateX(-50%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+@keyframes pulse-ring {
+  0% {
+    transform: scale(0.9);
+    opacity: 0.7;
+  }
+  70% {
+    transform: scale(1.6);
+    opacity: 0;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+/* ---------------------------------------------------------- */
+
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--color-canvas);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+::selection {
+  background: color-mix(in srgb, var(--color-brand) 20%, transparent);
+  color: var(--color-ink);
+}
+
+/* Reusable layout shell */
+.shell {
+  width: 100%;
+  max-width: 1200px;
+  margin-inline: auto;
+  padding-inline: 24px;
+}
+@media (max-width: 640px) {
+  .shell {
+    padding-inline: 18px;
+  }
+}
+
+/* Serif display headline helper */
+.display {
+  font-family: var(--font-serif);
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  line-height: 1.08;
+}
+
+/* Editorial italic serif accent — matches the reference's mixed style.
+   Same ink color, just italic serif weaved into a bold serif heading. */
+.accent {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-weight: 400;
+  letter-spacing: 0;
+  color: inherit;
+}
+
+/* Scroll reveal */
+.reveal {
+  opacity: 0;
+  transform: translateY(26px);
+  transition: opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: opacity, transform;
+}
+.reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+  .marquee-track {
+    animation: none !important;
+  }
+}
+
+/* Soft blue ambient mesh (no purple) */
+.mesh {
+  background-image: radial-gradient(
+      60% 50% at 50% 0%,
+      rgba(94, 168, 255, 0.18),
+      transparent 70%
+    ),
+    radial-gradient(40% 40% at 85% 10%, rgba(31, 111, 235, 0.12), transparent 70%),
+    radial-gradient(45% 45% at 10% 20%, rgba(94, 168, 255, 0.12), transparent 70%);
+}
+
+/* hide scrollbar for marquee containers */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Tinted section band — a smooth white → soft-blue → white fade that peaks
+   in the middle (behind the content) and eases fully to white at the top and
+   bottom edges, so sections blend with no seam, border, or banding kink. */
+.section-tint {
+  background-image: linear-gradient(
+    180deg,
+    var(--color-canvas) 0%,
+    var(--color-tint) 50%,
+    var(--color-canvas) 100%
+  );
+}
