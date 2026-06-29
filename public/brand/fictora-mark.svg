@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512" fill="none" role="img" aria-label="Fictora">
+  <g stroke="#0A0A0C" stroke-width="38" stroke-linecap="round">
+    <path d="M150 188H366"/>
+    <path d="M150 256H322"/>
+    <path d="M150 324H272"/>
+  </g>
+  <circle cx="356" cy="324" r="26" fill="#2E7BFF"/>
+</svg>

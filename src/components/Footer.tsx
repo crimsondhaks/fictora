@@ -1,31 +1,36 @@
 import { useLayoutEffect, useRef, useState } from "react";
-import { Logo } from "./ui/icons";
+import { Link } from "react-router-dom";
+import { Logo, ArrowRight } from "./ui/icons";
+import { useContact } from "./contact/ContactContext";
 
-const COLUMNS = [
+type FooterLink = { label: string; href?: string; modal?: boolean };
+type FooterColumn = { heading: string; links: FooterLink[] };
+
+const COLUMNS: FooterColumn[] = [
   {
     heading: "Product",
     links: [
-      { label: "Product", href: "#product" },
-      { label: "How it Works", href: "#how-it-works" },
-      { label: "Features", href: "#features" },
-      { label: "Sample Report", href: "#sample-report" },
+      { label: "Product", href: "/#product" },
+      { label: "How it Works", href: "/#how-it-works" },
+      { label: "Features", href: "/#features" },
+      { label: "Sample Report", href: "/#sample-report" },
     ],
   },
   {
     heading: "Company",
     links: [
-      { label: "Use Cases", href: "#use-cases" },
-      { label: "Pricing", href: "#pricing" },
-      { label: "FAQ", href: "#faq" },
-      { label: "Contact", href: "#contact" },
+      { label: "Use Cases", href: "/#use-cases" },
+      { label: "Waitlist", href: "/#waitlist" },
+      { label: "FAQ", href: "/#faq" },
+      { label: "Contact", modal: true },
     ],
   },
   {
     heading: "Legal",
     links: [
-      { label: "Privacy", href: "#privacy" },
-      { label: "Terms", href: "#terms" },
-      { label: "Security", href: "#security" },
+      { label: "Privacy", href: "/legal#privacy" },
+      { label: "Terms", href: "/terms" },
+      { label: "Security", href: "/legal#security" },
     ],
   },
 ];
@@ -89,19 +94,34 @@ function BrandWordmark() {
 }
 
 export function Footer() {
+  const { openContact } = useContact();
+
   return (
     <footer id="contact" className="relative overflow-hidden bg-gradient-to-b from-white to-tint">
       <div className="shell pt-14">
         <div className="grid grid-cols-2 gap-10 sm:grid-cols-4 lg:grid-cols-5">
           {/* Brand */}
           <div className="col-span-2 lg:col-span-2">
-            <a href="#top" className="flex items-center gap-2.5 font-bold tracking-tight">
+            <Link to="/" className="flex items-center gap-2.5 font-bold tracking-tight">
               <Logo />
               <span className="text-[20px]">Fictora</span>
-            </a>
+            </Link>
             <p className="mt-4 max-w-xs text-[15px] leading-relaxed text-muted">
-              AI users test your app before launch — so you find friction before real users do.
+              AI users test your app before launch.
             </p>
+            <div className="mt-5">
+              <button
+                type="button"
+                onClick={openContact}
+                className="inline-flex items-center gap-1.5 text-[15px] font-semibold text-ink transition-colors hover:text-brand"
+              >
+                Contact us
+                <ArrowRight className="h-4 w-4 text-brand" />
+              </button>
+              <p className="mt-1 text-[14px] text-muted">
+                For early access, partnerships, or product demos.
+              </p>
+            </div>
           </div>
 
           {/* Link columns */}
@@ -113,12 +133,22 @@ export function Footer() {
               <ul className="mt-4 space-y-2.5">
                 {col.links.map((l) => (
                   <li key={l.label}>
-                    <a
-                      href={l.href}
-                      className="text-[15px] text-ink-soft transition-colors hover:text-brand"
-                    >
-                      {l.label}
-                    </a>
+                    {l.modal ? (
+                      <button
+                        type="button"
+                        onClick={openContact}
+                        className="text-[15px] text-ink-soft transition-colors hover:text-brand"
+                      >
+                        {l.label}
+                      </button>
+                    ) : (
+                      <Link
+                        to={l.href ?? "/"}
+                        className="text-[15px] text-ink-soft transition-colors hover:text-brand"
+                      >
+                        {l.label}
+                      </Link>
+                    )}
                   </li>
                 ))}
               </ul>

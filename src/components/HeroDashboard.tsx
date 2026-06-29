@@ -104,13 +104,13 @@ export function HeroDashboard() {
                 </span>
               </div>
               {/* avatar grid */}
-              <div className="grid grid-cols-10 gap-1.5">
-                {Array.from({ length: 50 }).map((_, i) => {
-                  const done = i < 36;
+              <div className="grid grid-cols-10 gap-1">
+                {Array.from({ length: 100 }).map((_, i) => {
+                  const done = i < 64;
                   return (
                     <span
                       key={i}
-                      className="aspect-square rounded-[5px]"
+                      className="aspect-square rounded-[4px]"
                       style={{
                         background: done
                           ? `color-mix(in srgb, var(--color-brand) ${
@@ -125,7 +125,7 @@ export function HeroDashboard() {
                 })}
               </div>
               <div className="mt-3 flex items-center justify-between text-[12px]">
-                <span className="text-muted">36 of 100 finished</span>
+                <span className="text-muted">64 of 100 finished</span>
                 <span className="font-semibold text-mint">in 47s</span>
               </div>
               <div className="mt-2 h-1.5 w-full overflow-hidden rounded-full bg-line">

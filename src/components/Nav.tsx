@@ -6,7 +6,7 @@ const LINKS = [
   { label: "Product", href: "#product" },
   { label: "How it Works", href: "#how-it-works" },
   { label: "Use Cases", href: "#use-cases" },
-  { label: "Pricing", href: "#pricing" },
+  { label: "Waitlist", href: "#waitlist" },
   { label: "FAQ", href: "#faq" },
 ];
 
@@ -58,13 +58,23 @@ export function Nav() {
             ))}
           </div>
 
+          {/* Right: CTAs */}
+          <div className="hidden items-center gap-2.5 lg:flex">
+            <Button href="#sample-report" variant="ghost" size="md">
+              View Sample Report
+            </Button>
+            <Button href="#waitlist" variant="primary" size="md">
+              Join Waitlist
+            </Button>
+          </div>
+
           {/* Mobile toggle */}
           <button
             type="button"
             aria-label="Toggle menu"
             aria-expanded={open}
             onClick={() => setOpen((v) => !v)}
-            className="ml-auto flex h-10 w-10 items-center justify-center rounded-full border border-line-strong bg-white/80 backdrop-blur lg:hidden"
+            className="ml-3 flex h-10 w-10 items-center justify-center rounded-full border border-line-strong bg-white/80 backdrop-blur lg:hidden"
           >
             <span className="relative block h-4 w-5">
               <span
@@ -104,13 +114,13 @@ export function Nav() {
               {l.label}
             </a>
           ))}
-          {/* Mobile CTAs hidden per request */}
-          <div className="hidden flex-col gap-2.5">
-            <Button href="#contact" variant="secondary" size="lg" onClick={() => setOpen(false)}>
-              Book Demo
+          {/* Mobile CTAs */}
+          <div className="mt-3 flex flex-col gap-2.5">
+            <Button href="#sample-report" variant="secondary" size="lg" onClick={() => setOpen(false)}>
+              View Sample Report
             </Button>
-            <Button href="#pricing" variant="primary" size="lg" onClick={() => setOpen(false)}>
-              Start Free Test
+            <Button href="#waitlist" variant="primary" size="lg" onClick={() => setOpen(false)}>
+              Join Waitlist
             </Button>
           </div>
         </div>

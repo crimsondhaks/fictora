@@ -17,26 +17,26 @@ export function FinalCTA() {
 
             <div className="relative mx-auto max-w-2xl">
               <h2 className="display text-balance text-[34px] text-white sm:text-[46px]">
-                Find the problems <span className="accent">before real users leave</span>.
+                Get <span className="accent">early access</span> before public launch
               </h2>
               <p className="mx-auto mt-5 max-w-xl text-[17px] leading-relaxed text-white/70 sm:text-[19px]">
-                Run 100 AI user tests on your app, website, or prototype before launch — and ship with confidence.
+                Join the waitlist and be one of the first teams to test your app with 100 simulated AI users.
               </p>
 
               <div className="mt-9 flex flex-col items-center justify-center gap-3 sm:flex-row">
                 <Button
-                  href="#pricing"
+                  href="#waitlist"
                   variant="secondary"
                   size="lg"
                   icon={<Bolt className="h-[18px] w-[18px]" />}
                 >
-                  Start Free Test
+                  Join Waitlist
                 </Button>
                 <Button
                   href="#sample-report"
                   variant="ghost"
                   size="lg"
-                  className="!text-white hover:!bg-white/10"
+                  className="!text-white hover:!text-white hover:!bg-white/10"
                   icon={<Report className="h-[18px] w-[18px]" />}
                 >
                   View Sample Report
@@ -45,7 +45,7 @@ export function FinalCTA() {
               </div>
 
               <p className="mt-6 text-[14px] text-white/50">
-                Free to start · No credit card · Results in under a minute
+                Limited spots · No spam · Early access for select teams
               </p>
             </div>
           </div>

@@ -34,8 +34,8 @@ export function Hero() {
 
           <Reveal delay={220}>
             <div className="mt-8 flex flex-col items-center gap-3 sm:flex-row">
-              <Button href="#pricing" variant="primary" size="lg" icon={<Bolt className="h-[18px] w-[18px]" />}>
-                Start Free Test
+              <Button href="#waitlist" variant="primary" size="lg" icon={<Bolt className="h-[18px] w-[18px]" />}>
+                Join Waitlist
               </Button>
               <Button
                 href="#sample-report"

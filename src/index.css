@@ -98,6 +98,7 @@
 
 html {
   scroll-behavior: smooth;
+  scroll-padding-top: 5.5rem;
   -webkit-text-size-adjust: 100%;
 }
 
@@ -205,4 +206,239 @@ body {
     var(--color-tint) 50%,
     var(--color-canvas) 100%
   );
+}
+
+/* ============================================================
+   Waitlist — premium blue cloud success animation
+   Runs once on appear, then settles into a calm idle float.
+   ============================================================ */
+.cs-stage {
+  --cs-orbit-r: 62px;
+  position: relative;
+  width: 152px;
+  height: 132px;
+  margin-inline: auto;
+}
+@media (max-width: 640px) {
+  .cs-stage {
+    --cs-orbit-r: 46px;
+    width: 112px;
+    height: 100px;
+  }
+}
+
+/* radial glow behind the cloud */
+.cs-glow {
+  position: absolute;
+  inset: -8%;
+  border-radius: 9999px;
+  background: radial-gradient(
+    50% 50% at 50% 55%,
+    rgba(96, 165, 250, 0.5),
+    rgba(96, 165, 250, 0) 70%
+  );
+  opacity: 0.85;
+  animation: cs-glow-in 0.8s ease 0.15s both,
+    cs-glow-pulse 4.5s ease-in-out 1.6s infinite;
+}
+
+/* AI scanning ring (one or two passes, then fades) */
+.cs-ring {
+  position: absolute;
+  inset: 4%;
+  border-radius: 9999px;
+  background: conic-gradient(
+    from 0deg,
+    rgba(96, 165, 250, 0) 190deg,
+    rgba(59, 130, 246, 0.65) 300deg,
+    rgba(96, 165, 250, 0) 345deg
+  );
+  -webkit-mask: radial-gradient(
+    farthest-side,
+    transparent calc(100% - 3px),
+    #000 calc(100% - 2.2px)
+  );
+  mask: radial-gradient(
+    farthest-side,
+    transparent calc(100% - 3px),
+    #000 calc(100% - 2.2px)
+  );
+  opacity: 0;
+  animation: cs-spin 1.5s linear 0.4s 2, cs-ring-fade 2.6s ease 0.4s both;
+}
+
+/* mini orbiting persona dots (brief) */
+.cs-orbit {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  animation: cs-spin 2.6s linear 0.5s 1 both, cs-orbit-fade 2.6s ease 0.5s both;
+}
+.cs-orbit i {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  height: 7px;
+  width: 7px;
+  margin: -3.5px 0 0 -3.5px;
+  border-radius: 9999px;
+  background: #60a5fa;
+  box-shadow: 0 0 8px rgba(96, 165, 250, 0.85);
+}
+
+/* soft blue particles floating upward */
+.cs-particles {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  border-radius: 24px;
+}
+.cs-particles i {
+  position: absolute;
+  bottom: 26%;
+  border-radius: 9999px;
+  background: radial-gradient(circle, rgba(96, 165, 250, 0.95), rgba(96, 165, 250, 0));
+  opacity: 0;
+  animation: cs-particle 3.6s ease-in-out infinite;
+}
+
+/* the cloud */
+.cs-cloud-wrap {
+  position: absolute;
+  left: 50%;
+  top: 53%;
+  width: 80%;
+  transform: translate(-50%, -50%);
+}
+.cs-cloud {
+  display: block;
+  width: 100%;
+  height: auto;
+  transform-origin: center;
+  filter: drop-shadow(0 8px 16px rgba(59, 130, 246, 0.28));
+  animation: cs-pop 0.7s cubic-bezier(0.22, 1, 0.36, 1) 0.1s both,
+    cs-float 5s ease-in-out 1.5s infinite;
+}
+.cs-check {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  animation: cs-check 0.55s cubic-bezier(0.65, 0, 0.35, 1) 0.95s forwards;
+}
+
+/* fade-up for the success text + badge */
+.cs-enter {
+  animation: cs-enter 0.6s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes cs-glow-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@keyframes cs-glow-pulse {
+  0%, 100% { opacity: 0.65; }
+  50% { opacity: 1; }
+}
+@keyframes cs-pop {
+  0% { opacity: 0; transform: scale(0.55) translateY(6px); }
+  60% { opacity: 1; transform: scale(1.06) translateY(0); }
+  100% { opacity: 1; transform: scale(1) translateY(0); }
+}
+@keyframes cs-float {
+  0%, 100% { transform: translateY(0) scale(1); }
+  50% { transform: translateY(-5px) scale(1.012); }
+}
+@keyframes cs-check {
+  to { stroke-dashoffset: 0; }
+}
+@keyframes cs-spin {
+  to { transform: rotate(360deg); }
+}
+@keyframes cs-ring-fade {
+  0% { opacity: 0; }
+  22% { opacity: 0.95; }
+  78% { opacity: 0.5; }
+  100% { opacity: 0; }
+}
+@keyframes cs-orbit-fade {
+  0% { opacity: 0; }
+  20% { opacity: 1; }
+  75% { opacity: 1; }
+  100% { opacity: 0; }
+}
+@keyframes cs-particle {
+  0% { opacity: 0; transform: translateY(10px) scale(0.8); }
+  25% { opacity: 0.85; }
+  75% { opacity: 0.45; }
+  100% { opacity: 0; transform: translateY(-48px) scale(1.05); }
+}
+@keyframes cs-enter {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: none; }
+}
+
+/* Respect reduced motion: show the final calm state, no movement */
+@media (prefers-reduced-motion: reduce) {
+  .cs-glow,
+  .cs-ring,
+  .cs-orbit,
+  .cs-cloud,
+  .cs-check,
+  .cs-particles i,
+  .cs-enter {
+    animation: none !important;
+  }
+  .cs-check {
+    stroke-dashoffset: 0;
+  }
+  .cs-ring,
+  .cs-orbit,
+  .cs-particles i {
+    opacity: 0;
+  }
+  .cs-glow {
+    opacity: 0.8;
+  }
+  .cs-cloud {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* ============================================================
+   Persona marquee — dual rows, soft edge fades, pause on hover
+   ============================================================ */
+.marquee-viewport {
+  -webkit-mask-image: linear-gradient(
+    to right,
+    transparent 0,
+    #000 9%,
+    #000 91%,
+    transparent 100%
+  );
+  mask-image: linear-gradient(
+    to right,
+    transparent 0,
+    #000 9%,
+    #000 91%,
+    transparent 100%
+  );
+}
+.marquee-left {
+  animation: marquee 54s linear infinite;
+}
+.marquee-right {
+  animation: marquee-rev 68s linear infinite;
+}
+/* Pause both rows when the user hovers the marquee */
+.marquee-viewport:hover .marquee-track {
+  animation-play-state: paused;
+}
+/* Calmer, slower movement on mobile */
+@media (max-width: 640px) {
+  .marquee-left {
+    animation-duration: 72s;
+  }
+  .marquee-right {
+    animation-duration: 90s;
+  }
 }
